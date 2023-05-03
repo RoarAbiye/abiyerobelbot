@@ -5,6 +5,9 @@ it doesn't do anything special *it just responses with the text you sent to the 
 # To run this repo locally
 
 1. clone this repo
-2. create ngrok accunt and get the authorization token and store it in .env file
-3. create telegram bot using botfatehr.
-4. start your ngrok server at server 5000.
+2. install node.js if you dont have it in your system
+3. goto the cloned repo folder and run `npm install`
+4. create ngrok account and get the authorization token, store it in .env file
+5. create telegram bot using botfatehr.
+6 store the telegram bot token in the .env file
+6. start your ngrok server at server 5000.
