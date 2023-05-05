@@ -27,6 +27,7 @@ app.post(URI, async (req, res) => {
     chat_id: chatId,
     text: text
   })
+  console.log("message sending triggered")
   return res.send()
 })
 
