@@ -30,8 +30,8 @@ app.listen(port, () => {
 });
 
 // Just to ping!
-bot.on('message', msg => {
+bot.on('message', async msg => {
   // bot.sendMessage(msg.dice.id, `${bot.sendDice()}`)
   // bot.sendMessage(msg.chat.id, 'I am alive!');
-  bot.sendMessage(msg.chat.id, `${msg.from.first_name} wrote a String with length of ${msg.text.length}`);
+  await bot.sendMessage(msg.chat.id, `${msg.from.first_name} wrote a String with length of ${msg.text.length}`);
 })
