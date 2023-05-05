@@ -27,16 +27,7 @@ app.post(URI, async (req, res) => {
     chat_id: chatId,
     text: text
   })
-  console.log("post requsted")
   return res.send()
-})
-
-app.get("/", (req, res) => {
-  return res.send({
-    "telegram api key": TELEGRAM_API,
-    "uri": URI,
-    "web-hook": WEBHOOK_URL
-  })
 })
 
 app.listen(process.env.PORT || 10000, async () => {
