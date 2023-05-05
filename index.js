@@ -27,6 +27,7 @@ app.post(URI, async (req, res) => {
     chat_id: chatId,
     text: text
   })
+  console.log("post requsted")
   return res.send()
 })
 app.listen(process.env.PORT || 10000, async () => {
