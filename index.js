@@ -17,7 +17,7 @@ const init = async () => {
   console.log(res.data)
 }
 
-app.post(URI, async (req, res) => {
+app.post(`/${URI}`, async (req, res) => {
   console.log(req.body)
 
   const chatId = req.body.message.chat.id;
