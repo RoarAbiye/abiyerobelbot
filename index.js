@@ -30,6 +30,11 @@ app.post(URI, async (req, res) => {
   console.log("post requsted")
   return res.send()
 })
+
+app.get("/", ()=>{
+  console.log("hi")
+})
+
 app.listen(process.env.PORT || 10000, async () => {
   console.log('🚀 app running on port', process.env.PORT || 10000);
   await init();
