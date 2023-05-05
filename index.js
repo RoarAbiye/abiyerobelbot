@@ -18,7 +18,9 @@ const init = async () => {
 }
 
 app.post(`${URI}`, async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
+
+  console.log("message sending triggered")
 
   const chatId = req.body.message.chat.id;
   const text = req.body.message.text;
@@ -27,16 +29,11 @@ app.post(`${URI}`, async (req, res) => {
     chat_id: chatId,
     text: text
   })
-  console.log("message sending triggered")
   return res.send()
 })
 
 app.get('/debug', (req, res) => {
-  return res.body({
-    "TELEGRAM_API": TELEGRAM_API,
-    "URI": URI,
-    "WEBHOOK_URL": WEBHOOK_URL
-  })
+  return res.send("hi")
 })
 app.listen(process.env.PORT || 10000, async () => {
   console.log('🚀 app running on port', process.env.PORT || 10000);
