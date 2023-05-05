@@ -1,41 +1,37 @@
-require("dotenv").config()
+require('dotenv').config()
+const express = require('express');
 
-const express = require("express")
-const bodyParser = require("body-parser")
-const axios = require("axios")
+const token = process.env.TELEGRAM_TOKEN;
+const url = process.env.SERVER_URL;
+const port = process.env.PORT || 5000;
 
-const { TOKEN, SERVER_URL } = process.env
-const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
-const URI = `/webhook/${TOKEN}`
-const WEBHOOK_URL = SERVER_URL + URI
+const TelegramBot = require('node-telegram-bot-api');
 
-const app = express()
-app.use(bodyParser.json())
+// No need to pass any parameters as we will handle the updates with Express
+const bot = new TelegramBot(token);
 
-const init = async () => {
-  const res = await axios.get(`${TELEGRAM_API}/setWebhook?url=${WEBHOOK_URL}`)
-  console.log(res.data)
-}
+// This informs the Telegram servers of the new webhook.
+bot.setWebHook(`${url}/bot${token}`);
 
-app.post(`${URI}`, async (req, res) => {
-  // console.log(req.body)
+const app = express();
 
-  console.log("message sending triggered")
+// parse the updates to JSON
+app.use(express.json());
 
-  const chatId = req.body.message.chat.id;
-  const text = req.body.message.text;
+// We are receiving updates at the route below!
+app.post(`/bot${token}`, (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
+});
 
-  await axios.post(`${TELEGRAM_API}/sendMessage`, {
-    chat_id: chatId,
-    text: text
-  })
-  return res.send()
-})
+// Start Express Server
+app.listen(port, () => {
+  console.log(`Express server is listening on ${port}`);
+});
 
-app.get('/debug', (req, res) => {
-  return res.send("hi")
-})
-app.listen(process.env.PORT || 10000, async () => {
-  console.log('🚀 app running on port', process.env.PORT || 10000);
-  await init();
+// Just to ping!
+bot.on('message', msg => {
+  // bot.sendMessage(msg.dice.id, `${bot.sendDice()}`)
+  // bot.sendMessage(msg.chat.id, 'I am alive!');
+  bot.sendMessage(msg.chat.id, `${msg.from.first_name} wrote a String with length of ${msg.text.length}`);
 })
