@@ -31,8 +31,8 @@ app.post(URI, async (req, res) => {
   return res.send()
 })
 
-app.get("/", ()=>{
-  console.log("hi")
+app.get("/", (req, res)=>{
+  return res.send({"hi": "hello"})
 })
 
 app.listen(process.env.PORT || 10000, async () => {
